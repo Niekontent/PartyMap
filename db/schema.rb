@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_26_183841) do
+ActiveRecord::Schema.define(version: 2019_12_15_190146) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -33,15 +33,26 @@ ActiveRecord::Schema.define(version: 2019_11_26_183841) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "event_users", force: :cascade do |t|
+    t.integer "event_id"
+    t.integer "user_id"
+    t.boolean "confirmed", default: false
+    t.index ["event_id"], name: "index_event_users_on_event_id"
+    t.index ["user_id"], name: "index_event_users_on_user_id"
+  end
+
   create_table "events", force: :cascade do |t|
     t.string "type"
     t.string "description"
     t.string "location"
     t.date "date"
-    t.string "picture_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "title"
+    t.integer "user_id"
+    t.integer "owner_id"
+    t.index ["owner_id"], name: "index_events_on_owner_id"
+    t.index ["user_id"], name: "index_events_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -56,9 +67,13 @@ ActiveRecord::Schema.define(version: 2019_11_26_183841) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.integer "event_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["event_id"], name: "index_users_on_event_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "events", "users"
+  add_foreign_key "users", "events"
 end

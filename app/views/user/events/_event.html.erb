@@ -1,0 +1,35 @@
+<div class="col-sm-12 col-md-12">
+  <div class="event-list-item <%= EventUser.add_confirmed_class_to_event?(event, current_user) ? 'confirmed' : '' %>">
+    <div class="event-list-type <%= event.type %>"><%= event.type %></div>
+    <div class="event-list-photo" style="background: url(<%= (url_for(event.photo)) %>) no-repeat center center / cover;"></div>
+    <div class="event-list-info-wrapper">
+      <div class="event-list-title"><%= event.title %></div>
+      <div class="event-list-details">
+        <div class="event-list-header-date chip">
+          <i class="far fa-calendar-alt"></i><%= event.date %>
+        </div>
+        <div class="event-list-header-location chip">
+          <i class="fas fa-map-marker-alt"></i><%= event.location %>
+        </div>
+        <% if current_user && Event.belongs_to_current_user?(current_user, event) %>
+          <a href=" <%= user_event_participants_path(event.id) %>" class="event-list-header-users chip">
+            <i class="fas fa-user-friends"></i> Zapisani <%= event.users.count %>
+          </a>
+        <% end %>
+      </div>
+    </div>
+    <div class="event-list-description">
+      <%= event.description %>
+      <br>
+    </div>
+    <div class="event-list-actions">
+      <% if Event.belongs_to_current_user?(current_user, event) %>
+        <a class="event-action-edit" href=" <%= edit_event_path(event.id) %> "><i class="fas fa-pen"></i></a>
+        <a class="event-action-destroy" href=" <%= event_path(event.id) %> " data-confirm="Czy na pewno chcesz całkowicie usunąć ten Event?" data-method="delete"><i class="fas fa-trash"></i></a>
+      <% else %>
+        <a class="event-action-resign" href=" <%= user_events_sign_out_path(event.id) %> " data-confirm="Czy na pewno chcesz zrezygnować z tego Eventu?"><i class="fas fa-minus-circle"></i></a>
+      <% end %>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<div class="events-list-page">
+  <div class="information-header">TWOJE EVENTY:</div>
+  <% @owned_events.each do |event| %>
+    <%= render 'event', event: event%>
+  <% end %>
+  <div class="information-header">ZAPISAŁEŚ SIĘ NA:</div>
+  <% @assigned_events.each do |event| %>
+    <%= render 'event', event: event%>
+  <% end %>
+</div>

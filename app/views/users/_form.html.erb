@@ -1,0 +1,9 @@
+<%= simple_form_for @user, html: { class: "form-group" } do |f| %>
+  <div class="col-sm-3">
+    <%= f.input :name %>
+    <%= f.input :age %>
+    <%= f.input :description, as: :text %>
+    <%= f.input :avatar %>
+    <%= f.button :submit, class: "btn btn-primary"  %>
+  </div>
+<% end %>

@@ -1,0 +1,6 @@
+<div class="participants-list-page">
+  <div class="information-header">OSOBY ZAPISANE NA EVENT: <%= @event.title %></div>
+  <% @event_participants.each do |participant| %>
+    <%= render 'participant', participant: participant %>
+  <% end %>
+</div>

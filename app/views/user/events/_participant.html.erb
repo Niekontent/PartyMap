@@ -1,0 +1,31 @@
+<div class="col-sm-12 col-md-12">
+  <% if EventUser.user_event_status(@event, participant) == false %>
+    <div class="participant-list-item ">
+  <% else %>
+    <div class="participant-list-item confirmed">
+  <% end %>
+  <% if participant.avatar.attached? %>
+    <img class="participant-avatar" src="<%= (url_for(participant.avatar)) %>">
+  <% else %>
+    <img class="participant-avatar" src="<%= asset_path('empty-profile-picture.jpg') %>">
+  <% end %>
+  <div class="participant-list-info-wrapper">
+    <div class="participant-list-name"><%= participant.name %></div>
+    <div class="participant-list-details">
+      <div class="participant-list-header-age chip">
+        <i class="far fa-user-circle"></i> <%= participant.age %> lat(a)
+      </div>
+      <div class="participant-list-header-age chip">
+        <i class="far fa-calendar-check"></i> Dołączył(a) <%= participant.created_at.strftime("%m-%Y") %>
+      </div>
+    </div>
+  </div>
+  <div class="participant-list-description">
+    <%= participant.description %>
+  </div>
+  <div class="participant-list-actions">
+    <a class="participant-action-confirm" href=" <%= user_event_participants_update_status_path(@event.id, participant.id, 'true') %> " data-confirm="Czy na pewno zgadzasz się aby <%= participant.name %> dołączył(a)?"><i class="fas fa-check"></i></a>
+    <a class="participant-action-reject" href=" <%= user_event_participants_update_status_path(@event.id, participant.id, 'false') %> " data-confirm="Czy na pewno chcesz udrzucić <%= participant.name %> ?"><i class="fas fa-times"></i></a>
+  </div>
+  </div>
+  </div>

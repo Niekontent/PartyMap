@@ -1,12 +1,11 @@
-<%= simple_form_for @event, html: { class: "form-inline" } do |f| %>
-  <div class="col-sm-6">
+<%= simple_form_for @event, html: { class: "form-group" } do |f| %>
+  <div class="col-sm-3">
     <%= f.input :title %>
-    <%= f.input :type %>
+    <%= f.input :type, collection: Event.types.keys %>
     <%= f.input :location, help: 'City' %>
     <%= f.input :description, as: :text %>
     <%= f.input :date %>
-    <%= f.input :picture_url %>
     <%= f.input :photo %>
-    <%= f.button :submit %>
+    <div class="btn btn-primary"><%= f.button :submit %></div>
   </div>
 <% end %>

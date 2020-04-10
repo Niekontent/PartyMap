@@ -1,33 +1,21 @@
-<h1>Lista Eventów</h1>
-
-<table>
-  <thead>
-  <tr>
-    <th>Typ</th>
-    <th>Lokalizacja</th>
-    <th>Opis</th>
-    <th>Obrazek</th>
-    <th>
-  </tr>
-  </thead>
-  <tbody>
-    <% @events.each do |event| %>
-      <tr>
-        <td>
-          <%= event.type %>
-        </td>
-        <td>
-          <%= event.location %>
-        </td>
-        <td>
-          <%= event.description %>
-        </td>
-        <td>
-          <% if event.photo.attached? %>
-            <image src="<%= (url_for(event.photo)) %>"height="42" width="42"></image>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= stylesheet_link_tag "main" %>
+<div class="main-page">
+  <div class="container">
+    <div class="event-search-form">
+      <%= search_form_for @q do |f| %>
+        <%= f.label :location_or_type_cont, "MIASTO / TYP" %>
+        <%= f.search_field :location_or_type_cont %>
+        <%= f.submit "Znajdź!", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+    <div class="events-map">
+      <img src="<%= asset_path('events-map.png') %>" width=100%vw" height="600px">
+    </div>
+    <div class="event-tile-container">
+      <% @events.each do |event| %>
+      <%= render 'event', event: event %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<%= render 'event_modal' %>
