@@ -1,0 +1,12 @@
+<%= simple_form_for @event, html: { class: "form-inline" } do |f| %>
+  <div class="col-sm-6">
+    <%= f.input :title %>
+    <%= f.input :type %>
+    <%= f.input :location, help: 'City' %>
+    <%= f.input :description, as: :text %>
+    <%= f.input :date %>
+    <%= f.input :picture_url %>
+    <%= f.input :photo %>
+    <%= f.button :submit %>
+  </div>
+<% end %>

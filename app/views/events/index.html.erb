@@ -1,0 +1,33 @@
+<h1>Lista Eventów</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Typ</th>
+    <th>Lokalizacja</th>
+    <th>Opis</th>
+    <th>Obrazek</th>
+    <th>
+  </tr>
+  </thead>
+  <tbody>
+    <% @events.each do |event| %>
+      <tr>
+        <td>
+          <%= event.type %>
+        </td>
+        <td>
+          <%= event.location %>
+        </td>
+        <td>
+          <%= event.description %>
+        </td>
+        <td>
+          <% if event.photo.attached? %>
+            <image src="<%= (url_for(event.photo)) %>"height="42" width="42"></image>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
